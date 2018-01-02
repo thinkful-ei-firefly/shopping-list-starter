@@ -1,4 +1,4 @@
-/* global store, Item */
+/* global store */
 
 // eslint-disable-next-line no-unused-vars
 const shoppingList = (function(){
@@ -79,19 +79,6 @@ const shoppingList = (function(){
     });
   }
   
-<<<<<<< HEAD
-  function deleteListItem(id) {
-    const index = store.items.findIndex(item => item.id === id);
-    store.items.splice(index, 1);
-  }
-  
-=======
->>>>>>> add findAndDelete, update shoppingList handler
-  function editListItemName(id, itemName) {
-    const item = store.items.find(item => item.id === id);
-    item.updateName(itemName);
-  }
-  
   function toggleCheckedItemsFilter() {
     store.hideCheckedItems = !store.hideCheckedItems;
   }
@@ -118,7 +105,7 @@ const shoppingList = (function(){
       event.preventDefault();
       const id = getItemIdFromElement(event.currentTarget);
       const itemName = $(event.currentTarget).find('.shopping-item').val();
-      editListItemName(id, itemName);
+      store.findAndUpdateName(id, itemName);
       render();
     });
   }
