@@ -4,6 +4,8 @@
 const Item = (function(){
   class Item {
     constructor(name) {
+      if (!name) throw new TypeError('Cannot create Item: Must provide name');
+
       this.id = cuid();
       this.name = name;
       this.checked = false;
