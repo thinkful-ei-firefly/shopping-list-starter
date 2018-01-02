@@ -28,6 +28,14 @@ const store = (function(){
     findAndUpdateName(id, name) {
       const item = this.findById(id);
       item.updateName(name);
+    },
+
+    toggleCheckedFilter() {
+      this.hideCheckedItems = !this.hideCheckedItems;
+    },
+
+    setSearchTerm(term) {
+      this.searchTerm = term;
     }
   };
   
