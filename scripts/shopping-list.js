@@ -55,25 +55,15 @@ const shoppingList = (function(){
   }
   
   
-  function addItemToShoppingList(itemName) {
-    store.items.push(new Item(itemName));
-  }
-  
   function handleNewItemSubmit() {
     $('#js-shopping-list-form').submit(function (event) {
       event.preventDefault();
       const newItemName = $('.js-shopping-list-entry').val();
       $('.js-shopping-list-entry').val('');
-      addItemToShoppingList(newItemName);
+      store.addItem(newItemName);
       render();
     });
   }
-  
-  function toggleCheckedForListItem(id) {
-    const foundItem = store.items.find(item => item.id === id);
-    foundItem.checked = !foundItem.checked;
-  }
-  
   
   function getItemIdFromElement(item) {
     return $(item)
@@ -84,7 +74,7 @@ const shoppingList = (function(){
   function handleItemCheckClicked() {
     $('.js-shopping-list').on('click', '.js-item-toggle', event => {
       const id = getItemIdFromElement(event.currentTarget);
-      toggleCheckedForListItem(id);
+      store.findAndToggleChecked(id);
       render();
     });
   }
