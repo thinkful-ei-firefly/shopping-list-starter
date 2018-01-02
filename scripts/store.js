@@ -19,6 +19,10 @@ const store = (function(){
     findAndToggleChecked(id) {
       const item = this.findById(id);
       item.toggleChecked();
+    },
+
+    findAndDelete(id) {
+      this.items = this.items.filter(item => item.id !== id);
     }
   };
   
