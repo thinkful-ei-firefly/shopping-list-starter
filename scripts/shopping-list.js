@@ -96,7 +96,7 @@ const shoppingList = (function(){
   
   function editListItemName(id, itemName) {
     const item = store.items.find(item => item.id === id);
-    item.name = itemName;
+    item.updateName(itemName);
   }
   
   function toggleCheckedItemsFilter() {
