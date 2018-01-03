@@ -2,23 +2,19 @@
 
 // eslint-disable-next-line no-unused-vars
 const Item = (function(){
-  class Item {
-    constructor(name) {
-      if (!name) throw new TypeError('Cannot create Item: Must provide name');
 
-      this.id = cuid();
-      this.name = name;
-      this.checked = false;
+  return {
+    validateName: function(name, action) {
+      if (!name) throw new TypeError(`Cannot ${action || 'perform action'}: Name must not be blank`);
+    },
+
+    createItem: function(name) {
+      return {
+        id: cuid(),
+        name,
+        checked: false
+      };
     }
+  };
 
-    updateName(name) {
-      this.name = name;
-    }
-
-    toggleChecked() {
-      this.checked = !this.checked;
-    }
-  }
-
-  return Item;
 }());

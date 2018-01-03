@@ -9,7 +9,8 @@ const store = (function(){
     searchTerm: '',
 
     addItem(name) {
-      this.items.push(new Item(name));
+      Item.validateName(name, 'create item');
+      this.items.push(Item.createItem(name));
     },
 
     findById(id) {
@@ -18,7 +19,7 @@ const store = (function(){
 
     findAndToggleChecked(id) {
       const item = this.findById(id);
-      item.toggleChecked();
+      item.checked = !item.checked;
     },
 
     findAndDelete(id) {
@@ -26,8 +27,9 @@ const store = (function(){
     },
 
     findAndUpdateName(id, name) {
+      Item.validateName(name, 'update name');
       const item = this.findById(id);
-      item.updateName(name);
+      item.name = name;
     },
 
     toggleCheckedFilter() {
