@@ -3,8 +3,12 @@
 // eslint-disable-next-line no-unused-vars
 const store = (function(){
   const addItem = function(name) {
-    Item.validateName(name, 'create item');
-    this.items.push(Item.createItem(name));
+    try {
+      Item.validateName(name);
+      this.items.push(Item.createItem(name));
+    } catch(e) {
+      console.log(e.message);
+    }
   };
 
   const findById = function(id) {
@@ -21,9 +25,13 @@ const store = (function(){
   };
 
   const findAndUpdateName = function(id, name) {
-    Item.validateName(name, 'update name');
-    const item = this.findById(id);
-    item.name = name;
+    try {
+      Item.validateName(name);
+      const item = this.findById(id);
+      item.name = name;
+    } catch(e) {
+      console.log('Cannot update name: ' + e.message);
+    }
   };
 
   const toggleCheckedFilter = function() {
