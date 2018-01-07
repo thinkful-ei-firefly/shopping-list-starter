@@ -7,7 +7,7 @@ const Item = (function(){
     if (!name) throw new TypeError('Name must not be blank');
   };
 
-  const createItem = function(name) {
+  const create = function(name) {
     return {
       id: cuid(),
       name,
@@ -17,7 +17,7 @@ const Item = (function(){
 
   return {
     validateName,
-    createItem
+    create,
   };
   
 }());

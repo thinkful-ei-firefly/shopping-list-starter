@@ -5,4 +5,4 @@ $(document).ready(function() {
   shoppingList.render();
 });
 
-store.items.push(Item.createItem('apples'));
+store.items.push(Item.create('apples'));

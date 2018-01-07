@@ -5,7 +5,7 @@ const store = (function(){
   const addItem = function(name) {
     try {
       Item.validateName(name);
-      this.items.push(Item.createItem(name));
+      this.items.push(Item.create(name));
     } catch(e) {
       console.log(e.message);
     }
