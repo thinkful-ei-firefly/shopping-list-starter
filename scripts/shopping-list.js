@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* global store, $ */
+=======
+/* global store, api */
+>>>>>>> api in global lint
 
 // eslint-disable-next-line no-unused-vars
 const shoppingList = (function(){
@@ -110,16 +114,11 @@ const shoppingList = (function(){
       event.preventDefault();
       const id = getItemIdFromElement(event.currentTarget);
       const itemName = $(event.currentTarget).find('.shopping-item').val();
-<<<<<<< HEAD
-      store.findAndUpdateName(id, itemName);
-      store.setItemIsEditing(id, false);
-      render();
-=======
       api.updateItem(id, { name: itemName }, () => {
         store.findAndUpdate(id, { name: itemName });
+        store.setItemIsEditing(id, false);
         render();
       });
->>>>>>> finish ex8
     });
   }
   
