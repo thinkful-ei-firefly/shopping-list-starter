@@ -5,14 +5,15 @@ const api = (function(){
     $.getJSON(BASE_URL + '/items', callback);
   };
 
-  const createItem = function(name, callback) {
+  const createItem = function(name, onSuccess, onError) {
     const newItem = JSON.stringify({ name });
     $.ajax({
       url: BASE_URL + '/items',
       method: 'POST',
       contentType: 'application/json',
       data: newItem,
-      success: callback
+      success: onSuccess,
+      error: onError,
     });
   };
 

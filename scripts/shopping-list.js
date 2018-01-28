@@ -1,11 +1,23 @@
-<<<<<<< HEAD
-/* global store, $ */
-=======
 /* global store, api */
->>>>>>> api in global lint
 
 // eslint-disable-next-line no-unused-vars
 const shoppingList = (function(){
+
+  function generateError(err) {
+    let message = '';
+    if (err.responseJSON && err.responseJSON.message) {
+      message = err.responseJSON.message;
+    } else {
+      message = `${err.code} Server Error`;
+    }
+
+    return `
+      <section class="error-content">
+        <button id="cancel-error">X</button>
+        <p>${message}</p>
+      </section>
+    `;
+  }
 
   function generateItemElement(item) {
     const checkedClass = item.checked ? 'shopping-item__checked' : '';
@@ -45,6 +57,13 @@ const shoppingList = (function(){
   
   
   function render() {
+    if (store.error) {
+      const el = generateError(store.error);
+      $('.error-container').html(el);
+    } else {
+      $('.error-container').empty();
+    }
+
     // Filter item list if store prop is true by item.checked === false
     let items = [ ...store.items ];
     if (store.hideCheckedItems) {
@@ -70,10 +89,17 @@ const shoppingList = (function(){
       event.preventDefault();
       const newItemName = $('.js-shopping-list-entry').val();
       $('.js-shopping-list-entry').val('');
-      api.createItem(newItemName, (newItem) => {
-        store.addItem(newItem);
-        render();
-      });
+      api.createItem(newItemName, 
+        (newItem) => {
+          store.addItem(newItem);
+          render();
+        },
+        (err) => {
+          console.log(err);
+          store.setError(err);
+          render();
+        }
+      );
     });
   }
   
@@ -133,10 +159,16 @@ const shoppingList = (function(){
     });
   }
 
+<<<<<<< HEAD
   function handleItemStartEditing() {
     $('.js-shopping-list').on('click', '.js-item-edit', event => {
       const id = getItemIdFromElement(event.target);
       store.setItemIsEditing(id, true);
+=======
+  function handleCloseError() {
+    $('.error-container').on('click', '#cancel-error', () => {
+      store.setError(null);
+>>>>>>> add error handling for handleNew
       render();
     });
   }
@@ -148,7 +180,11 @@ const shoppingList = (function(){
     handleEditShoppingItemSubmit();
     handleToggleFilterClick();
     handleShoppingListSearch();
+<<<<<<< HEAD
     handleItemStartEditing();
+=======
+    handleCloseError();
+>>>>>>> add error handling for handleNew
   }
 
   // This object contains the only exposed methods from this module:

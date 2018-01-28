@@ -1,5 +1,9 @@
 // eslint-disable-next-line no-unused-vars
 const store = (function(){
+  const setError = function(error) {
+    this.error = error;
+  };
+
   const addItem = function(item) {
     this.items.push(item);
   };
@@ -32,10 +36,12 @@ const store = (function(){
 
   return {
     items: [],
+    error: null,
     hideCheckedItems: false,
     searchTerm: '',
 
     addItem,
+    setError,
     findById,
     findAndDelete,
     findAndUpdate,
