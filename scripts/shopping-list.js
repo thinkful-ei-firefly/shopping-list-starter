@@ -1,4 +1,4 @@
-/* global store, api */
+/* global store, api, $ */
 
 // eslint-disable-next-line no-unused-vars
 const shoppingList = (function(){
@@ -159,16 +159,17 @@ const shoppingList = (function(){
     });
   }
 
-<<<<<<< HEAD
   function handleItemStartEditing() {
     $('.js-shopping-list').on('click', '.js-item-edit', event => {
       const id = getItemIdFromElement(event.target);
       store.setItemIsEditing(id, true);
-=======
+      render();
+    });
+  }
+
   function handleCloseError() {
     $('.error-container').on('click', '#cancel-error', () => {
       store.setError(null);
->>>>>>> add error handling for handleNew
       render();
     });
   }
@@ -180,11 +181,8 @@ const shoppingList = (function(){
     handleEditShoppingItemSubmit();
     handleToggleFilterClick();
     handleShoppingListSearch();
-<<<<<<< HEAD
     handleItemStartEditing();
-=======
     handleCloseError();
->>>>>>> add error handling for handleNew
   }
 
   // This object contains the only exposed methods from this module:
