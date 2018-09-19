@@ -38,6 +38,11 @@ const store = (function(){
     this.hideCheckedItems = !this.hideCheckedItems;
   };
 
+  const setItemIsEditing = function(id, isEditing) {
+    const item = this.findById(id);
+    item.isEditing = isEditing;
+  };
+
   const setSearchTerm = function(term) {
     this.searchTerm = term;
   };
@@ -54,6 +59,7 @@ const store = (function(){
     findAndUpdateName,
     toggleCheckedFilter,
     setSearchTerm,
+    setItemIsEditing,
   };
   
 }());
