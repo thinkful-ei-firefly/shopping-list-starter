@@ -17,21 +17,23 @@ const api = (function(){
     });
   };
 
-  const updateItem = function(id, updateData, callback) {
+  const updateItem = function(id, updateData, onSuccess, onError) {
     $.ajax({
       url: BASE_URL + '/items/' + id,
       method: 'PATCH',
       contentType: 'application/json',
       data: JSON.stringify(updateData),
-      success: callback
+      success: onSuccess,
+      error: onError,
     });
   };
 
-  const deleteItem = function(id, callback) {
+  const deleteItem = function(id, onSuccess, onError) {
     $.ajax({
       url: BASE_URL + '/items/' + id,
       method: 'DELETE',
-      success: callback
+      success: onSuccess,
+      error: onError,
     });
   };
 

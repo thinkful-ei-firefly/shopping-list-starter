@@ -113,10 +113,17 @@ const shoppingList = (function(){
     $('.js-shopping-list').on('click', '.js-item-toggle', event => {
       const id = getItemIdFromElement(event.currentTarget);
       const item = store.findById(id);
-      api.updateItem(id, { checked: !item.checked }, () => {
-        store.findAndUpdate(id, { checked: !item.checked });
-        render();
-      });
+      api.updateItem(id, { checked: !item.checked },
+        () => {
+          store.findAndUpdate(id, { checked: !item.checked });
+          render();
+        },
+        (err) => {
+          console.log(err);
+          store.setError(err);
+          render();
+        }
+      );
     });
   }
   
@@ -124,10 +131,17 @@ const shoppingList = (function(){
     $('.js-shopping-list').on('click', '.js-item-delete', event => {
       const id = getItemIdFromElement(event.currentTarget);
 
-      api.deleteItem(id, () => {
-        store.findAndDelete(id);
-        render();
-      });
+      api.deleteItem(id, 
+        () => {
+          store.findAndDelete(id);
+          render();
+        },
+        (err) => {
+          console.log(err);
+          store.setError(err);
+          render();
+        }
+      );
     });
   }
   
@@ -136,11 +150,18 @@ const shoppingList = (function(){
       event.preventDefault();
       const id = getItemIdFromElement(event.currentTarget);
       const itemName = $(event.currentTarget).find('.shopping-item').val();
-      api.updateItem(id, { name: itemName }, () => {
-        store.findAndUpdate(id, { name: itemName });
-        store.setItemIsEditing(id, false);
-        render();
-      });
+      api.updateItem(id, { name: itemName },
+        () => {
+          store.findAndUpdate(id, { name: itemName });
+          store.setItemIsEditing(id, false);
+          render();
+        },
+        (err) => {
+          console.log(err);
+          store.setError(err);
+          render();
+        }
+      );
     });
   }
   
