@@ -3,14 +3,7 @@
 // eslint-disable-next-line no-unused-vars
 const shoppingList = (function(){
 
-  function generateError(err) {
-    let message = '';
-    if (err.responseJSON && err.responseJSON.message) {
-      message = err.responseJSON.message;
-    } else {
-      message = `${err.code} Server Error`;
-    }
-
+  function generateError(message) {
     return `
       <section class="error-content">
         <button id="cancel-error">X</button>
@@ -89,17 +82,15 @@ const shoppingList = (function(){
       event.preventDefault();
       const newItemName = $('.js-shopping-list-entry').val();
       $('.js-shopping-list-entry').val('');
-      api.createItem(newItemName, 
-        (newItem) => {
+      api.createItem(newItemName)
+        .then((newItem) => {
           store.addItem(newItem);
           render();
-        },
-        (err) => {
-          console.log(err);
-          store.setError(err);
+        })
+        .catch((err) => {
+          store.setError(err.message);
           render();
-        }
-      );
+        });
     });
   }
   
@@ -113,14 +104,14 @@ const shoppingList = (function(){
     $('.js-shopping-list').on('click', '.js-item-toggle', event => {
       const id = getItemIdFromElement(event.currentTarget);
       const item = store.findById(id);
-      api.updateItem(id, { checked: !item.checked },
-        () => {
+      api.updateItem(id, { checked: !item.checked })
+        .then(() => {
           store.findAndUpdate(id, { checked: !item.checked });
           render();
-        },
-        (err) => {
+        })
+        .catch((err) => {
           console.log(err);
-          store.setError(err);
+          store.setError(err.message);
           render();
         }
       );
@@ -131,14 +122,14 @@ const shoppingList = (function(){
     $('.js-shopping-list').on('click', '.js-item-delete', event => {
       const id = getItemIdFromElement(event.currentTarget);
 
-      api.deleteItem(id, 
-        () => {
+      api.deleteItem(id)
+        .then(() => {
           store.findAndDelete(id);
           render();
-        },
-        (err) => {
+        })
+        .catch((err) => {
           console.log(err);
-          store.setError(err);
+          store.setError(err.message);
           render();
         }
       );
@@ -150,19 +141,18 @@ const shoppingList = (function(){
       event.preventDefault();
       const id = getItemIdFromElement(event.currentTarget);
       const itemName = $(event.currentTarget).find('.shopping-item').val();
-      api.updateItem(id, { name: itemName },
-        () => {
+      api.updateItem(id, { name: itemName })
+        .then(() => {
           store.findAndUpdate(id, { name: itemName });
           store.setItemIsEditing(id, false);
           render();
-        },
-        (err) => {
+        })
+        .catch((err) => {
           console.log(err);
-          store.setError(err);
+          store.setError(err.message);
           render();
-        }
-      );
-    });
+        });
+      });
   }
   
   function handleToggleFilterClick() {
