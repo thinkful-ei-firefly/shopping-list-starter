@@ -3,14 +3,14 @@ const api = (function(){
   const BASE_URL = 'https://thinkful-list-api.herokuapp.com/rich';
 
   /**
-   * Wrapper function for `fetch`
-   * @param {string} url - target of request 
+   * listApiFetch - Wrapper function for native `fetch` to standardize error handling
+   * @param {string} url 
    * @param {object} options 
    */
-  const myFetch = function(url, options) {
+  const listApiFetch = function(...args) {
     // setup var in scope outside of promise chain
     let error = false;
-    return fetch(url, options)
+    return fetch(...args)
       .then(res => {
         if (!res.ok) {
           // if response is not 2xx, indicate error occurred
@@ -30,12 +30,12 @@ const api = (function(){
   };
 
   const getItems = function() {
-    return myFetch(BASE_URL + '/items');
+    return listApiFetch(BASE_URL + '/items');
   };
 
   const createItem = function(name) {
     const newItem = JSON.stringify({ name });
-    return myFetch(BASE_URL + '/items', {
+    return listApiFetch(BASE_URL + '/items', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -46,7 +46,7 @@ const api = (function(){
 
   const updateItem = function(id, updateData) {
     const newData = JSON.stringify(updateData);
-    return myFetch(BASE_URL + '/items/' + id, {
+    return listApiFetch(BASE_URL + '/items/' + id, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ const api = (function(){
   };
 
   const deleteItem = function(id) {
-    return myFetch(BASE_URL + '/items/' + id, {
+    return listApiFetch(BASE_URL + '/items/' + id, {
       method: 'DELETE'
     });
   };
