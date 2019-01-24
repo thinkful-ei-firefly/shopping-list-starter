@@ -1,6 +1,12 @@
+// eslint-disable-next-line no-unused-vars
 const api = (function(){
   const BASE_URL = 'https://thinkful-list-api.herokuapp.com/rich';
 
+  /**
+   * Wrapper function for `fetch`
+   * @param {string} url - target of request 
+   * @param {object} options 
+   */
   const myFetch = function(url, options) {
     // setup var in scope outside of promise chain
     let error = false;
