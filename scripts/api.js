@@ -20,16 +20,12 @@ const api = (function(){
         // return parsed JSON no matter what
         return res.json();
       })
-      .then(res => {
+      .then(data => {
         // if error, then throw the error message so it will land in the next catch()
-        if (error) throw new Error(res.message);
+        if (error) throw new Error(data.message);
 
         // otherwise, return the json as normal resolution
-        return res;
-      })
-      .catch(err => {
-        // if non response error (e.g. server timeout), throw err back out
-        throw err;
+        return data;
       });
   };
 
