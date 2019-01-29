@@ -2,8 +2,8 @@
 
 $(document).ready(function() {
   shoppingList.bindEventListeners();
-  shoppingList.render();
 
+  // On initial load, fetch Shopping Items and render
   api.getItems()
     .then((items) => {
       items.forEach((item) => store.addItem(item));
