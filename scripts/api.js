@@ -18,7 +18,7 @@ const api = (function(){
         }
 
         // if response is not JSON type, immediately reject with response Status Text
-        if (!res.get('content-type').includes('json')) {
+        if (!res.headers.get('content-type').includes('json')) {
           error.message = res.statusText;
           return Promise.reject(error);
         }
