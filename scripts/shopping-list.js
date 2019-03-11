@@ -48,14 +48,17 @@ const shoppingList = (function(){
     return items.join('');
   }
   
-  
-  function render() {
+  function renderError() {
     if (store.error) {
       const el = generateError(store.error);
       $('.error-container').html(el);
     } else {
       $('.error-container').empty();
     }
+  }
+  
+  function render() {
+    renderError();
 
     // Filter item list if store prop is true by item.checked === false
     let items = [ ...store.items ];
@@ -89,7 +92,7 @@ const shoppingList = (function(){
         })
         .catch((err) => {
           store.setError(err.message);
-          render();
+          renderError();
         });
     });
   }
@@ -112,7 +115,7 @@ const shoppingList = (function(){
         .catch((err) => {
           console.log(err);
           store.setError(err.message);
-          render();
+          renderError();
         }
       );
     });
@@ -130,7 +133,7 @@ const shoppingList = (function(){
         .catch((err) => {
           console.log(err);
           store.setError(err.message);
-          render();
+          renderError();
         }
       );
     });
@@ -150,7 +153,7 @@ const shoppingList = (function(){
         .catch((err) => {
           console.log(err);
           store.setError(err.message);
-          render();
+          renderError();
         });
       });
   }
@@ -181,7 +184,7 @@ const shoppingList = (function(){
   function handleCloseError() {
     $('.error-container').on('click', '#cancel-error', () => {
       store.setError(null);
-      render();
+      renderError();
     });
   }
   
