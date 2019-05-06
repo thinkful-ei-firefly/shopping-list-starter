@@ -117,7 +117,7 @@ const shoppingList = (function(){
           store.setError(err.message);
           renderError();
         }
-      );
+        );
     });
   }
   
@@ -135,7 +135,7 @@ const shoppingList = (function(){
           store.setError(err.message);
           renderError();
         }
-      );
+        );
     });
   }
   
@@ -155,7 +155,7 @@ const shoppingList = (function(){
           store.setError(err.message);
           renderError();
         });
-      });
+    });
   }
   
   function handleToggleFilterClick() {
