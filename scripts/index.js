@@ -1,3 +1,4 @@
+'use strict';
 /* global shoppingList, store, api */
 
 $(document).ready(function() {
@@ -9,6 +10,6 @@ $(document).ready(function() {
       items.forEach((item) => store.addItem(item));
       shoppingList.render();
     })
-    .catch(err => console.log(err.message))
+    .catch(err => console.log(err.message));
 });
 
